@@ -428,7 +428,7 @@
   function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
   function dayIndex(arr){const d=new Date();const n=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24));return n%arr.length}
   function amazonUrl(t,a){return'https://www.amazon.com/s?k='+encodeURIComponent(t+' '+a)}
-  function bookshopUrl(t){return'https://bookshop.org/search?keywords='+encodeURIComponent(t)}
+  function bookshopUrl(t){return'https://bookshop.org/a/124881/'+encodeURIComponent(t)}
 
   // ===== INTRO =====
   const intro=document.getElementById('intro');
