@@ -258,7 +258,7 @@
   <div class="navlinks">
     <a href="#catalog">Catalog</a>
     <a href="#videos">Watch</a>
-    <a href="#quiz-anchor">Quiz</a>
+    <a href="#quiz-anchor" onclick="event.preventDefault();openQuiz()">Quiz</a>
     <a href="#about">About</a>
   </div>
 </nav>
@@ -633,6 +633,11 @@
     document.getElementById('quiz-modal').classList.add('open');
     document.body.style.overflow='hidden';
   };
+
+  // Auto-open quiz if URL contains #quiz-anchor — wait for intro to finish first
+  if(window.location.hash==='#quiz-anchor'){
+    setTimeout(()=>window.openQuiz(),3800);
+  }
 
   window.closeQuiz=function(){
     document.getElementById('quiz-modal').classList.remove('open');
