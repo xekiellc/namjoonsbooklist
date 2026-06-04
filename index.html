@@ -13,6 +13,10 @@
 <meta property="og:image" content="https://namjoonsbooklist.com/assets/namjoon_full_1.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon.svg">
+<meta name="theme-color" content="#1C1B17">
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJVYT6C8JP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -84,7 +88,7 @@
   .tracker-banner{margin-top:36px;display:inline-flex;align-items:center;gap:14px;background:var(--accent);color:var(--paper);padding:14px 22px}
   .tracker-banner .tb-count{font-family:'Fraunces',serif;font-size:28px;font-weight:300;line-height:1}
   .tracker-banner .tb-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
-  .tracker-banner .tb-cta{font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(244,241,234,.4);padding:6px 12px;cursor:pointer;margin-left:8px;transition:.2s}
+  .tracker-banner .tb-cta{font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(244,241,234,.4);padding:6px 12px;cursor:pointer;margin-left:8px;transition:.2s;background:none;color:var(--paper);font-family:'Archivo',sans-serif}
   .tracker-banner .tb-cta:hover{background:rgba(244,241,234,.15)}
   .hero-cta{margin-top:32px}
   .hero-cta a{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:8px;transition:.3s}
@@ -167,7 +171,7 @@
   .video-thumb img{width:100%;height:100%;object-fit:cover;transition:opacity .3s}
   .video-thumb:hover img{opacity:.75}
   .play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-  .play-btn svg{width:52px;height:52px;drop-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .play-btn svg{width:52px;height:52px}
   .video-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
   .video-info{padding:16px 18px 18px}
   .video-title{font-family:'Fraunces',serif;font-size:17px;font-weight:400;color:var(--paper);margin-bottom:5px;line-height:1.25}
@@ -327,9 +331,9 @@
     <div class="divider-line"></div>
   </div>
   <div class="video-intro">Official moments, reading clips, and ARMY taking on his list — the reading life of RM, on screen.</div>
-  <div class="video-cat" id="official-label">Official Moments</div>
+  <div class="video-cat">Official Moments</div>
   <div class="video-grid" id="official-videos"></div>
-  <div class="video-cat" id="army-label">ARMY Reads with Namjoon</div>
+  <div class="video-cat">ARMY Reads with Namjoon</div>
   <div class="video-grid" id="army-videos"></div>
 </section>
 
@@ -346,7 +350,6 @@
 <div class="quiz-modal" id="quiz-modal">
   <div class="quiz-box">
     <button class="quiz-close" onclick="closeQuiz()">×</button>
-
     <div class="quiz-step active" id="step-0">
       <div class="quiz-q">It's a quiet Sunday morning. What are you doing?</div>
       <div class="quiz-options">
@@ -356,7 +359,6 @@
         <button class="quiz-opt" onclick="answer(0,3)">Watching something thought-provoking</button>
       </div>
     </div>
-
     <div class="quiz-step" id="step-1">
       <div class="quiz-q">What feeling do you most want a book to give you?</div>
       <div class="quiz-options">
@@ -366,7 +368,6 @@
         <button class="quiz-opt" onclick="answer(1,3)">A story that pulls me completely away</button>
       </div>
     </div>
-
     <div class="quiz-step" id="step-2">
       <div class="quiz-q">Pick the word that resonates most right now.</div>
       <div class="quiz-options">
@@ -376,7 +377,6 @@
         <button class="quiz-opt" onclick="answer(2,3)">Transformation</button>
       </div>
     </div>
-
     <div class="quiz-step" id="step-3">
       <div class="quiz-q">How do you handle hard emotions?</div>
       <div class="quiz-options">
@@ -386,7 +386,6 @@
         <button class="quiz-opt" onclick="answer(3,3)">I channel them into something creative</button>
       </div>
     </div>
-
     <div class="quiz-step" id="step-4">
       <div class="quiz-q">What's your relationship with the past?</div>
       <div class="quiz-options">
@@ -396,7 +395,6 @@
         <button class="quiz-opt" onclick="answer(4,3)">I want to rewrite it</button>
       </div>
     </div>
-
     <div class="quiz-step" id="step-result">
       <div class="quiz-result" id="quiz-result-content"></div>
     </div>
@@ -422,18 +420,17 @@
   <div class="footer-note">Independent fan project · Not affiliated with RM, BTS, or HYBE</div>
 </footer>
 
-</div><!-- /page -->
+</div>
 
 <script>
 (function(){
 
-  // ===== HELPERS =====
   function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
-  function dayIndex(arr){ const d=new Date(); const n=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24)); return n%arr.length }
+  function dayIndex(arr){const d=new Date();const n=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24));return n%arr.length}
   function amazonUrl(t,a){return'https://www.amazon.com/s?k='+encodeURIComponent(t+' '+a)}
   function bookshopUrl(t){return'https://bookshop.org/search?keywords='+encodeURIComponent(t)}
 
-  // ===== INTRO (4 seconds) =====
+  // ===== INTRO =====
   const intro=document.getElementById('intro');
   setTimeout(()=>intro.classList.add('reveal'),250);
   setTimeout(()=>intro.classList.add('exit'),2900);
@@ -467,16 +464,11 @@
   // ===== READING TRACKER =====
   function getRead(){try{return JSON.parse(localStorage.getItem('njbl_read')||'[]')}catch{return[]}}
   function saveRead(arr){try{localStorage.setItem('njbl_read',JSON.stringify(arr))}catch{}}
-  function updateTrackerBanner(){
-    const n=getRead().length;
-    document.getElementById('tracker-count').textContent=n;
-  }
+  function updateTrackerBanner(){document.getElementById('tracker-count').textContent=getRead().length}
   updateTrackerBanner();
 
   // ===== BOOKS =====
-  let BOOKS=[];
-  let activeCat='All';
-  let query='';
+  let BOOKS=[],activeCat='All',query='';
   const grid=document.getElementById('grid');
   const chipsEl=document.getElementById('chips');
   const emptyEl=document.getElementById('empty');
@@ -485,10 +477,7 @@
     .then(r=>r.json())
     .then(data=>{
       BOOKS=data.books||[];
-      buildChips();
-      buildStats();
-      buildBotd();
-      render();
+      buildChips();buildStats();buildBotd();render();
     })
     .catch(()=>{emptyEl.textContent='The catalog could not be loaded.';emptyEl.style.display='block'});
 
@@ -499,16 +488,12 @@
   }
 
   function buildBotd(){
-    const b=BOOKS[dayIndex(BOOKS)];
-    if(!b)return;
+    const b=BOOKS[dayIndex(BOOKS)];if(!b)return;
     document.getElementById('botd-title').textContent=b.title;
     document.getElementById('botd-author').textContent=b.author;
     document.getElementById('botd-desc').textContent=b.description||'A book from RM\'s reading life.';
     document.getElementById('botd-meta').textContent=b.category+(b.origin?' · '+b.origin:'')+(b.verified?' · Verified mention':'');
-    document.getElementById('botd-links').innerHTML=`
-      <a class="botd-link" href="${amazonUrl(b.title,b.author)}" target="_blank" rel="noopener">Amazon →</a>
-      <a class="botd-link" href="${bookshopUrl(b.title)}" target="_blank" rel="noopener">Bookshop.org →</a>
-    `;
+    document.getElementById('botd-links').innerHTML=`<a class="botd-link" href="${amazonUrl(b.title,b.author)}" target="_blank" rel="noopener">Amazon →</a><a class="botd-link" href="${bookshopUrl(b.title)}" target="_blank" rel="noopener">Bookshop.org →</a>`;
   }
 
   function buildChips(){
@@ -534,7 +519,7 @@
     });
     grid.innerHTML=list.map(b=>{
       const isRead=read.includes(b.title);
-      return`<div class="flip-card" id="card-${esc(b.title.replace(/\s/g,'_'))}" onclick="handleCardClick(event,this)">
+      return`<div class="flip-card" onclick="handleCardClick(event,this)">
         <div class="flip-inner">
           <div class="flip-front">
             <div class="card-top">
@@ -578,33 +563,27 @@
     let read=getRead();
     if(read.includes(title)){read=read.filter(t=>t!==title);btn.classList.remove('checked');btn.textContent='';btn.title='Mark as read'}
     else{read.push(title);btn.classList.add('checked');btn.textContent='✓';btn.title='Mark unread'}
-    saveRead(read);
-    updateTrackerBanner();
+    saveRead(read);updateTrackerBanner();
   };
 
   // ===== DAILY QUOTE =====
   fetch('quotes.json')
     .then(r=>r.json())
     .then(data=>{
-      const quotes=data.quotes||[];
-      if(!quotes.length)return;
+      const quotes=data.quotes||[];if(!quotes.length)return;
       const q=quotes[dayIndex(quotes)];
       document.getElementById('daily-quote').textContent='"'+q.text+'"';
       document.getElementById('daily-source').textContent='— '+q.source+(q.year?', '+q.year:'');
-    })
-    .catch(()=>{});
+    }).catch(()=>{});
 
   // ===== VIDEOS =====
   fetch('videos.json')
     .then(r=>r.json())
     .then(data=>{
       const videos=data.videos||[];
-      const official=videos.filter(v=>v.type==='official');
-      const army=videos.filter(v=>v.type==='army');
-      renderVideos('official-videos',official);
-      renderVideos('army-videos',army);
-    })
-    .catch(()=>{});
+      renderVideos('official-videos',videos.filter(v=>v.type==='official'));
+      renderVideos('army-videos',videos.filter(v=>v.type==='army'));
+    }).catch(()=>{});
 
   function renderVideos(containerId,list){
     const el=document.getElementById(containerId);
@@ -613,20 +592,14 @@
       <div class="video-card">
         <div class="video-thumb" onclick="loadVideo(this,'${v.id}')">
           <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${esc(v.title)}" loading="lazy">
-          <div class="play-btn">
-            <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M66.5 7.7c-.8-2.9-3.1-5.2-6-6C55.8 0 34 0 34 0S12.2 0 7.5 1.7c-2.9.8-5.2 3.1-6 6C0 12.4 0 24 0 24s0 11.6 1.5 16.3c.8 2.9 3.1 5.2 6 6C12.2 48 34 48 34 48s21.8 0 26.5-1.7c2.9-.8 5.2-3.1 6-6C68 35.6 68 24 68 24s0-11.6-1.5-16.3z" fill="rgba(0,0,0,.7)"/>
-              <path d="M27 34l18-10-18-10v20z" fill="#fff"/>
-            </svg>
-          </div>
+          <div class="play-btn"><svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.5 7.7c-.8-2.9-3.1-5.2-6-6C55.8 0 34 0 34 0S12.2 0 7.5 1.7c-2.9.8-5.2 3.1-6 6C0 12.4 0 24 0 24s0 11.6 1.5 16.3c.8 2.9 3.1 5.2 6 6C12.2 48 34 48 34 48s21.8 0 26.5-1.7c2.9-.8 5.2-3.1 6-6C68 35.6 68 24 68 24s0-11.6-1.5-16.3z" fill="rgba(0,0,0,.7)"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg></div>
         </div>
         <div class="video-info">
           <div class="video-title">${esc(v.title)}</div>
           <div class="video-creator">${esc(v.creator)} · ${esc(v.date)}</div>
           <div class="video-desc">${esc(v.description)}</div>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
 
   window.loadVideo=function(thumb,id){
@@ -674,8 +647,7 @@
       document.getElementById('step-'+next).classList.add('active');
     } else {
       const score=answers.reduce((a,b)=>a+b,0);
-      const idx=score%quizResults.length;
-      const r=quizResults[idx];
+      const r=quizResults[score%quizResults.length];
       document.getElementById('quiz-result-content').innerHTML=`
         <div class="result-label">Your RM book match</div>
         <div class="result-title">${esc(r.title)}</div>
