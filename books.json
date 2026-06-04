@@ -1,0 +1,150 @@
+{
+  "updated": "2026-06-04",
+  "note": "verified:true = mention confirmed against a documented source. verified:false = widely attributed in fan compilations, confirm before treating as canonical.",
+  "books": [
+    {
+      "title": "Demian",
+      "author": "Hermann Hesse",
+      "category": "Fiction",
+      "origin": "Germany",
+      "source": "Core literary inspiration for BTS's Wings era; RM has discussed the novel's influence on the album",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Norwegian Wood",
+      "author": "Haruki Murakami",
+      "category": "Fiction",
+      "origin": "Japan",
+      "source": "Shared a page from the book on his Instagram story, Oct 16, 2022 (#rkive)",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Kafka on the Shore",
+      "author": "Haruki Murakami",
+      "category": "Fiction",
+      "origin": "Japan",
+      "source": "Long documented among his Murakami reads in fan and library compilations",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "1Q84",
+      "author": "Haruki Murakami",
+      "category": "Fiction",
+      "origin": "Japan",
+      "source": "Included in library-compiled lists of his documented reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "The Midnight Library",
+      "author": "Matt Haig",
+      "category": "Fiction",
+      "origin": "UK",
+      "source": "Recommended while exploring the study room with V on In the Soop Season 2",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Human Acts",
+      "author": "Han Kang",
+      "category": "Fiction",
+      "origin": "Korea",
+      "source": "Discussed reading it in a late-2017 VLIVE broadcast",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Almond",
+      "author": "Sohn Won-pyung",
+      "category": "Fiction",
+      "origin": "Korea",
+      "source": "Read alongside Suga during In the SOOP, Sep 2020",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Pachinko",
+      "author": "Min Jin Lee",
+      "category": "Fiction",
+      "origin": "Korea",
+      "source": "Attributed in fan compilations of his English-language reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "The Stranger",
+      "author": "Albert Camus",
+      "category": "Fiction",
+      "origin": "France",
+      "source": "Included in fan and library compilations of his documented reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "category": "Fiction",
+      "origin": "UK",
+      "source": "Included in fan and library compilations of his documented reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "The Little Prince",
+      "author": "Antoine de Saint-Exupéry",
+      "category": "Fiction",
+      "origin": "France",
+      "source": "Included in fan and library compilations of his documented reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "The Unbearable Lightness of Being",
+      "author": "Milan Kundera",
+      "category": "Fiction",
+      "origin": "Czechia",
+      "source": "Included in fan and library compilations of his documented reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "The Hitchhiker's Guide to the Galaxy",
+      "author": "Douglas Adams",
+      "category": "Fiction",
+      "origin": "UK",
+      "source": "Included in library-compiled lists of his documented reads",
+      "source_url": null,
+      "verified": false
+    },
+    {
+      "title": "Letters to a Young Poet",
+      "author": "Rainer Maria Rilke",
+      "category": "Poetry",
+      "origin": "Austria",
+      "source": "Spotted in his bookshelf Instagram post (#rkive)",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Giorgio Morandi: Late Paintings",
+      "author": "David Zwirner Books",
+      "category": "Art",
+      "origin": "Italy",
+      "source": "Shared on his Instagram story, Jan 27, 2023 (#rkive)",
+      "source_url": null,
+      "verified": true
+    },
+    {
+      "title": "Philip Guston: A Life Spent Painting",
+      "author": "Robert Storr",
+      "category": "Art",
+      "origin": "USA",
+      "source": "Named Guston a favorite artist on the Art Basel podcast; attended the Boston exhibit",
+      "source_url": null,
+      "verified": true
+    }
+  ]
+}
