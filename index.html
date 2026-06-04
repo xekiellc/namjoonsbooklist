@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Namjoon's Booklist — Every Book RM Has Recommended</title>
-<meta name="description" content="A searchable catalog of every book RM (Kim Namjoon) of BTS has recommended, been seen reading, or mentioned — every entry traced to its source.">
+<meta name="description" content="A searchable catalog of every book RM (Kim Namjoon) of BTS has recommended, been seen reading, or mentioned — with a daily quote, reading tracker, and book quiz.">
 <link rel="canonical" href="https://namjoonsbooklist.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://namjoonsbooklist.com/">
 <meta property="og:title" content="Namjoon's Booklist — Every Book RM Has Recommended">
-<meta property="og:description" content="A searchable catalog of RM's reading list. Every mention traced to its source.">
+<meta property="og:description" content="A searchable catalog of RM's reading list. Daily quotes, reading tracker, book quiz.">
 <meta property="og:image" content="https://namjoonsbooklist.com/assets/namjoon_full_1.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -34,7 +34,9 @@
     --line:#CFC9BB;
     --accent:#2E4A3F;
     --accent-bright:#3E6B58;
-    --gold:#B8960C;
+    --dark:#141F1A;
+    --dark-2:#1C2B24;
+    --gold:#C8B894;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -44,56 +46,81 @@
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
 
-  /* ===== INTRO ANIMATION ===== */
-  .intro{position:fixed;inset:0;background:var(--ink);z-index:1000;display:flex;align-items:center;justify-content:center;pointer-events:none}
-  .intro-text{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,64px);color:var(--paper);font-weight:200;letter-spacing:-.02em;opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
-  .intro-text em{font-style:italic;color:#C8B894}
+  /* ===== INTRO ===== */
+  .intro{position:fixed;inset:0;background:var(--ink);z-index:1000;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .8s ease}
+  .intro.exit{opacity:0}
+  .intro-text{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,64px);color:var(--paper);font-weight:200;letter-spacing:-.02em;opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease}
+  .intro-text em{font-style:italic;color:var(--gold)}
   .intro.reveal .intro-text{opacity:1;transform:translateY(0)}
-  .intro.exit{opacity:0;transition:opacity .7s ease .2s}
-  body.loaded .intro{pointer-events:none}
 
-  /* ===== PAGE FADE IN ===== */
-  .page{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
+  /* ===== PAGE ===== */
+  .page{opacity:0;transform:translateY(12px);transition:opacity .9s ease,transform .9s ease}
   body.loaded .page{opacity:1;transform:translateY(0)}
 
   /* ===== NAV ===== */
-  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 56px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(244,241,234,.92);backdrop-filter:blur(12px);z-index:50}
-  .brand{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 56px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(244,241,234,.94);backdrop-filter:blur(12px);z-index:50}
+  .brand{font-family:'Fraunces',serif;font-size:21px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
   .brand:hover{text-decoration:none}
   .brand em{font-style:italic;color:var(--accent)}
-  .navlinks{display:flex;gap:36px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .navlinks{display:flex;gap:32px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
   .navlinks a{color:var(--ink-soft);transition:color .2s}
   .navlinks a:hover{color:var(--accent);text-decoration:none}
 
+  /* ===== DAILY QUOTE ===== */
+  .quote-bar{background:var(--dark);padding:22px 56px;display:flex;align-items:center;gap:24px;border-bottom:1px solid rgba(200,184,148,.2)}
+  .quote-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);white-space:nowrap;flex-shrink:0}
+  .quote-text{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:17px;color:var(--paper);line-height:1.4;flex:1}
+  .quote-source{font-size:10px;letter-spacing:.1em;color:rgba(200,184,148,.7);white-space:nowrap;flex-shrink:0}
+
   /* ===== HERO ===== */
-  header{display:grid;grid-template-columns:1.1fr 1fr;min-height:92vh;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-  .hero-text{padding:96px 56px 72px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
-  h1{font-family:'Fraunces',serif;font-weight:200;font-size:clamp(52px,7.5vw,104px);line-height:.96;letter-spacing:-.03em;max-width:13ch}
+  header{display:grid;grid-template-columns:1.1fr 1fr;min-height:88vh;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .hero-text{padding:88px 56px 64px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+  h1{font-family:'Fraunces',serif;font-weight:200;font-size:clamp(48px,7vw,100px);line-height:.96;letter-spacing:-.03em;max-width:13ch}
   h1 em{font-style:italic;color:var(--accent)}
-  .lede{margin-top:32px;font-size:18px;max-width:48ch;color:var(--ink-soft);font-weight:300;line-height:1.7}
-  .stats{margin-top:52px;display:flex;gap:52px}
-  .stat .n{font-family:'Fraunces',serif;font-size:48px;font-weight:300;line-height:1;letter-spacing:-.02em}
+  .lede{margin-top:28px;font-size:17px;max-width:48ch;color:var(--ink-soft);font-weight:300;line-height:1.7}
+  .stats{margin-top:48px;display:flex;gap:48px}
+  .stat .n{font-family:'Fraunces',serif;font-size:46px;font-weight:300;line-height:1;letter-spacing:-.02em}
   .stat .l{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
-  .hero-cta{margin-top:48px}
+  .tracker-banner{margin-top:36px;display:inline-flex;align-items:center;gap:14px;background:var(--accent);color:var(--paper);padding:14px 22px}
+  .tracker-banner .tb-count{font-family:'Fraunces',serif;font-size:28px;font-weight:300;line-height:1}
+  .tracker-banner .tb-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+  .tracker-banner .tb-cta{font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(244,241,234,.4);padding:6px 12px;cursor:pointer;margin-left:8px;transition:.2s}
+  .tracker-banner .tb-cta:hover{background:rgba(244,241,234,.15)}
+  .hero-cta{margin-top:32px}
   .hero-cta a{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:8px;transition:.3s}
   .hero-cta a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
 
   /* ===== IMAGE ROTATOR ===== */
   .hero-art{position:relative;overflow:hidden;border-left:1px solid var(--line)}
-  .hero-art .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;background-size:cover;background-position:center top}
+  .hero-art .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center top}
   .hero-art .slide.active{opacity:1}
-  .hero-art::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--paper) 0%,transparent 18%)}
+  .hero-art::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--paper) 0%,transparent 20%)}
   .dots{position:absolute;bottom:28px;right:28px;z-index:10;display:flex;gap:8px}
   .dot{width:6px;height:6px;border-radius:50%;background:rgba(28,27,23,.25);cursor:pointer;transition:.3s;border:none;padding:0}
   .dot.on{background:var(--ink)}
 
+  /* ===== BOOK OF THE DAY ===== */
+  .botd{background:var(--dark-2);padding:56px;border-bottom:1px solid rgba(200,184,148,.15);display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:center}
+  .botd-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .botd-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(28px,4vw,48px);line-height:1.05;letter-spacing:-.02em;color:var(--paper);margin-bottom:10px}
+  .botd-author{font-size:15px;color:rgba(244,241,234,.6);margin-bottom:20px}
+  .botd-desc{font-size:14px;color:rgba(244,241,234,.75);line-height:1.7;max-width:52ch}
+  .botd-links{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .botd-link{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:10px 20px;border:1px solid rgba(200,184,148,.4);color:var(--paper);transition:.2s}
+  .botd-link:hover{background:rgba(200,184,148,.12);text-decoration:none;border-color:var(--gold)}
+  .botd-meta{font-size:11px;color:rgba(200,184,148,.6);margin-top:16px;letter-spacing:.04em}
+  .botd-right{display:flex;flex-direction:column;gap:16px}
+
   /* ===== DIVIDER ===== */
-  .divider{padding:72px 56px 0;display:flex;align-items:center;gap:24px}
-  .divider h2{font-family:'Fraunces',serif;font-weight:300;font-size:36px;letter-spacing:-.01em;white-space:nowrap}
+  .divider{padding:64px 56px 0;display:flex;align-items:center;gap:24px}
+  .divider h2{font-family:'Fraunces',serif;font-weight:300;font-size:34px;letter-spacing:-.01em;white-space:nowrap}
   .divider-line{flex:1;height:1px;background:var(--line)}
+  .divider.dark{padding:56px 56px 0;background:var(--dark)}
+  .divider.dark h2{color:var(--paper)}
+  .divider.dark .divider-line{background:rgba(200,184,148,.2)}
 
   /* ===== TOOLBAR ===== */
-  .toolbar{padding:32px 56px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .toolbar{padding:28px 56px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
   .controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
   .search{background:#fff;border:1px solid var(--line);padding:11px 18px;font-family:'Archivo',sans-serif;font-size:14px;width:260px;color:var(--ink);transition:.2s}
   .search:focus{outline:none;border-color:var(--accent)}
@@ -103,77 +130,143 @@
   .chip.on{background:var(--accent);border-color:var(--accent);color:var(--paper)}
 
   /* ===== FLIP CARD GRID ===== */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;padding:32px 56px 80px}
-  .flip-card{height:300px;perspective:1000px;cursor:pointer}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;padding:28px 56px 80px}
+  .flip-card{height:320px;perspective:1000px;cursor:pointer}
   .flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
   .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
-  .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:26px 24px 24px;border:1px solid var(--line)}
+  .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:22px 22px 20px;border:1px solid var(--line)}
   .flip-front{background:var(--paper);transition:background .25s}
   .flip-card:hover .flip-front{background:var(--paper-2)}
   .flip-back{background:var(--accent);color:var(--paper);transform:rotateY(180deg);justify-content:space-between}
-  .card-meta{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:auto;padding-bottom:18px}
-  .card-title{font-family:'Fraunces',serif;font-weight:400;font-size:22px;line-height:1.15;letter-spacing:-.01em;margin-bottom:6px}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto}
+  .card-meta{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .card-check{width:22px;height:22px;border:1.5px solid var(--line);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;background:none;cursor:pointer;color:transparent;font-size:13px}
+  .card-check.checked{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+  .card-body{padding-top:16px}
+  .card-title{font-family:'Fraunces',serif;font-weight:400;font-size:21px;line-height:1.15;letter-spacing:-.01em;margin-bottom:5px}
   .card-author{font-size:13px;color:var(--ink-soft)}
-  .card-source{margin-top:14px;font-size:11.5px;color:var(--ink-soft);line-height:1.5;border-top:1px solid var(--line);padding-top:12px}
+  .card-source{margin-top:12px;font-size:11.5px;color:var(--ink-soft);line-height:1.5;border-top:1px solid var(--line);padding-top:11px}
   .card-source b{color:var(--ink);font-weight:500}
-  .card-hint{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--line);margin-top:auto;text-align:right}
-  .back-title{font-family:'Fraunces',serif;font-size:18px;font-weight:400;line-height:1.2;margin-bottom:10px}
-  .back-desc{font-size:13px;line-height:1.6;opacity:.88;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
-  .back-links{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-  .back-link{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(244,241,234,.4);color:var(--paper);transition:.2s;white-space:nowrap}
-  .back-link:hover{background:rgba(244,241,234,.15);text-decoration:none;border-color:rgba(244,241,234,.7)}
-  .back-close{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,241,234,.5);margin-top:10px;text-align:right}
+  .card-hint{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--line);margin-top:auto;text-align:right;padding-top:10px}
+  .back-title{font-family:'Fraunces',serif;font-size:17px;font-weight:400;line-height:1.2;margin-bottom:8px}
+  .back-desc{font-size:12.5px;line-height:1.65;opacity:.88;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+  .back-links{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .back-link{font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;border:1px solid rgba(244,241,234,.35);color:var(--paper);transition:.2s;white-space:nowrap}
+  .back-link:hover{background:rgba(244,241,234,.12);text-decoration:none;border-color:rgba(244,241,234,.7)}
+  .back-close{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.45);text-align:right;margin-top:8px}
   .empty{padding:64px 56px;text-align:center;color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic;font-size:20px;display:none}
+
+  /* ===== VIDEOS ===== */
+  .video-section{background:var(--dark);padding-bottom:64px;border-bottom:1px solid rgba(200,184,148,.15)}
+  .video-intro{padding:16px 56px 40px;font-size:15px;color:rgba(244,241,234,.55);max-width:60ch}
+  .video-cat{padding:0 56px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding:0 56px 40px}
+  .video-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,184,148,.12);overflow:hidden;transition:.3s}
+  .video-card:hover{border-color:rgba(200,184,148,.3)}
+  .video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#000}
+  .video-thumb img{width:100%;height:100%;object-fit:cover;transition:opacity .3s}
+  .video-thumb:hover img{opacity:.75}
+  .play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+  .play-btn svg{width:52px;height:52px;drop-shadow:0 2px 8px rgba(0,0,0,.4)}
+  .video-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+  .video-info{padding:16px 18px 18px}
+  .video-title{font-family:'Fraunces',serif;font-size:17px;font-weight:400;color:var(--paper);margin-bottom:5px;line-height:1.25}
+  .video-creator{font-size:11px;color:rgba(200,184,148,.65);letter-spacing:.04em;margin-bottom:8px}
+  .video-desc{font-size:12px;color:rgba(244,241,234,.55);line-height:1.6}
+
+  /* ===== QUIZ ===== */
+  .quiz-strip{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:48px 56px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .quiz-left h2{font-family:'Fraunces',serif;font-weight:300;font-size:32px;letter-spacing:-.01em;margin-bottom:8px}
+  .quiz-left p{color:var(--ink-soft);font-size:15px;max-width:44ch}
+  .quiz-btn{font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:var(--paper);border:none;padding:16px 32px;cursor:pointer;font-family:'Archivo',sans-serif;transition:.2s;white-space:nowrap;flex-shrink:0}
+  .quiz-btn:hover{background:var(--accent-bright)}
+  .quiz-modal{position:fixed;inset:0;background:rgba(20,31,26,.92);z-index:200;display:none;align-items:center;justify-content:center;padding:24px}
+  .quiz-modal.open{display:flex}
+  .quiz-box{background:var(--paper);max-width:580px;width:100%;padding:48px;position:relative;max-height:90vh;overflow-y:auto}
+  .quiz-close{position:absolute;top:18px;right:22px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);line-height:1}
+  .quiz-step{display:none}
+  .quiz-step.active{display:block}
+  .quiz-q{font-family:'Fraunces',serif;font-weight:400;font-size:22px;margin-bottom:24px;line-height:1.3;letter-spacing:-.01em}
+  .quiz-options{display:flex;flex-direction:column;gap:10px}
+  .quiz-opt{background:none;border:1px solid var(--line);padding:14px 18px;text-align:left;cursor:pointer;font-family:'Archivo',sans-serif;font-size:14px;color:var(--ink);transition:.2s;width:100%}
+  .quiz-opt:hover{border-color:var(--accent);background:var(--paper-2)}
+  .quiz-result{text-align:center}
+  .quiz-result .result-label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .quiz-result .result-title{font-family:'Fraunces',serif;font-weight:300;font-size:36px;letter-spacing:-.02em;margin-bottom:8px}
+  .quiz-result .result-author{font-size:15px;color:var(--ink-soft);margin-bottom:20px}
+  .quiz-result .result-desc{font-size:14px;color:var(--ink-soft);line-height:1.7;margin-bottom:28px;text-align:left}
+  .quiz-result-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .quiz-result-link{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:12px 22px;border:1px solid var(--line);color:var(--ink);transition:.2s}
+  .quiz-result-link:hover{background:var(--accent);color:var(--paper);border-color:var(--accent);text-decoration:none}
+  .quiz-restart{margin-top:20px;background:none;border:none;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer;font-family:'Archivo',sans-serif}
+  .quiz-restart:hover{color:var(--accent)}
 
   /* ===== ABOUT ===== */
   .about{display:grid;grid-template-columns:1fr 1.5fr;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .about-art{border-right:1px solid var(--line);background:var(--paper-2);display:flex;align-items:center;justify-content:center;padding:56px}
   .about-art img{max-width:300px;box-shadow:0 8px 32px rgba(28,27,23,.14)}
   .about-text{padding:80px 56px}
-  .about-text h2{font-family:'Fraunces',serif;font-weight:300;font-size:38px;margin-bottom:28px;letter-spacing:-.02em}
+  .about-text h2{font-family:'Fraunces',serif;font-weight:300;font-size:36px;margin-bottom:26px;letter-spacing:-.02em}
   .about-text p{color:var(--ink-soft);max-width:56ch;margin-bottom:18px;font-size:15px;line-height:1.75}
   .about-text p b{color:var(--ink);font-weight:500}
   .about-text a{color:var(--accent)}
 
   /* ===== FOOTER ===== */
-  footer{padding:40px 56px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line)}
+  footer{padding:36px 56px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line)}
   .footer-brand{font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:var(--ink-soft)}
-  .footer-note{font-size:11px;color:var(--ink-soft);opacity:.6;letter-spacing:.02em}
+  .footer-note{font-size:11px;color:var(--ink-soft);opacity:.55;letter-spacing:.02em}
 
+  /* ===== RESPONSIVE ===== */
   @media(max-width:900px){
     header{grid-template-columns:1fr;min-height:auto}
-    .hero-art{height:55vw;border-left:none;border-top:1px solid var(--line)}
-    .hero-art::after{background:linear-gradient(to bottom,var(--paper) 0%,transparent 20%)}
+    .hero-art{height:60vw;border-left:none;border-top:1px solid var(--line)}
+    .hero-art::after{background:linear-gradient(to bottom,var(--paper) 0%,transparent 22%)}
+    .botd{grid-template-columns:1fr;gap:28px}
     .about{grid-template-columns:1fr}
     .about-art{border-right:none;border-bottom:1px solid var(--line)}
-    footer{flex-direction:column;gap:12px;text-align:center}
+    .quiz-strip{flex-direction:column;align-items:flex-start}
+    footer{flex-direction:column;gap:10px;text-align:center}
   }
   @media(max-width:640px){
-    nav,.hero-text,.divider,.toolbar,.grid,.about-text,footer{padding-left:22px;padding-right:22px}
+    nav,.hero-text,.botd,.divider,.toolbar,.grid,.video-intro,.video-cat,.video-grid,.quiz-strip,.about-text,footer{padding-left:20px;padding-right:20px}
+    .quote-bar{padding:16px 20px;flex-wrap:wrap;gap:10px}
+    .quote-source{display:none}
     .navlinks{display:none}
-    .stats{gap:32px;flex-wrap:wrap}
+    .stats{gap:28px;flex-wrap:wrap}
     .search{width:100%}
-    h1{font-size:clamp(44px,12vw,72px)}
+    h1{font-size:clamp(42px,12vw,68px)}
+    .quiz-box{padding:28px 22px}
   }
 </style>
 </head>
 <body>
 
-<!-- INTRO OVERLAY -->
+<!-- INTRO -->
 <div class="intro" id="intro">
-  <div class="intro-text" id="intro-text">Namjoon's <em>Booklist</em></div>
+  <div class="intro-text">Namjoon's <em>Booklist</em></div>
 </div>
 
 <div class="page" id="page">
 
+<!-- NAV -->
 <nav>
   <a class="brand" href="/">Namjoon's <em>Booklist</em></a>
   <div class="navlinks">
-    <a href="#catalog">The Catalog</a>
+    <a href="#catalog">Catalog</a>
+    <a href="#videos">Watch</a>
+    <a href="#quiz-anchor">Quiz</a>
     <a href="#about">About</a>
   </div>
 </nav>
 
+<!-- DAILY QUOTE -->
+<div class="quote-bar">
+  <div class="quote-label">Daily Quote</div>
+  <div class="quote-text" id="daily-quote">Loading…</div>
+  <div class="quote-source" id="daily-source"></div>
+</div>
+
+<!-- HERO -->
 <header>
   <div class="hero-text">
     <h1>Every book he <em>quietly</em> told us to read.</h1>
@@ -183,6 +276,13 @@
       <div class="stat"><div class="n" id="stat-authors">—</div><div class="l">Authors</div></div>
       <div class="stat"><div class="n" id="stat-cats">—</div><div class="l">Categories</div></div>
     </div>
+    <div class="tracker-banner" id="tracker-banner">
+      <div>
+        <div class="tb-count" id="tracker-count">0</div>
+        <div class="tb-label">Books read from this list</div>
+      </div>
+      <button class="tb-cta" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Update my list ↓</button>
+    </div>
     <div class="hero-cta"><a href="#catalog">Browse the catalog &nbsp;↓</a></div>
   </div>
   <div class="hero-art" id="hero-art">
@@ -190,6 +290,21 @@
   </div>
 </header>
 
+<!-- BOOK OF THE DAY -->
+<div class="botd" id="botd">
+  <div>
+    <div class="botd-label">Book of the Day</div>
+    <div class="botd-title" id="botd-title">Loading…</div>
+    <div class="botd-author" id="botd-author"></div>
+    <div class="botd-links" id="botd-links"></div>
+    <div class="botd-meta" id="botd-meta"></div>
+  </div>
+  <div class="botd-right">
+    <div class="botd-desc" id="botd-desc"></div>
+  </div>
+</div>
+
+<!-- CATALOG -->
 <section id="catalog">
   <div class="divider">
     <h2>The catalog</h2>
@@ -205,6 +320,90 @@
   <div class="empty" id="empty">Nothing on this shelf — try another search.</div>
 </section>
 
+<!-- VIDEOS -->
+<section class="video-section" id="videos">
+  <div class="divider dark">
+    <h2>Namjoon on Books</h2>
+    <div class="divider-line"></div>
+  </div>
+  <div class="video-intro">Official moments, reading clips, and ARMY taking on his list — the reading life of RM, on screen.</div>
+  <div class="video-cat" id="official-label">Official Moments</div>
+  <div class="video-grid" id="official-videos"></div>
+  <div class="video-cat" id="army-label">ARMY Reads with Namjoon</div>
+  <div class="video-grid" id="army-videos"></div>
+</section>
+
+<!-- QUIZ -->
+<div id="quiz-anchor"></div>
+<div class="quiz-strip">
+  <div class="quiz-left">
+    <h2>Which RM book are <em style="font-style:italic">you?</em></h2>
+    <p>Five quick questions. One book recommendation picked just for you — from his actual reading list.</p>
+  </div>
+  <button class="quiz-btn" onclick="openQuiz()">Take the quiz →</button>
+</div>
+
+<div class="quiz-modal" id="quiz-modal">
+  <div class="quiz-box">
+    <button class="quiz-close" onclick="closeQuiz()">×</button>
+
+    <div class="quiz-step active" id="step-0">
+      <div class="quiz-q">It's a quiet Sunday morning. What are you doing?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(0,0)">Reading alone somewhere beautiful</button>
+        <button class="quiz-opt" onclick="answer(0,1)">Thinking about something that's been bothering me</button>
+        <button class="quiz-opt" onclick="answer(0,2)">Out exploring — a museum, a market, anywhere new</button>
+        <button class="quiz-opt" onclick="answer(0,3)">Watching something thought-provoking</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="step-1">
+      <div class="quiz-q">What feeling do you most want a book to give you?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(1,0)">A sense of wonder at the world</button>
+        <button class="quiz-opt" onclick="answer(1,1)">The feeling that someone understands me</button>
+        <button class="quiz-opt" onclick="answer(1,2)">Something to think about for days</button>
+        <button class="quiz-opt" onclick="answer(1,3)">A story that pulls me completely away</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="step-2">
+      <div class="quiz-q">Pick the word that resonates most right now.</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(2,0)">Solitude</button>
+        <button class="quiz-opt" onclick="answer(2,1)">Identity</button>
+        <button class="quiz-opt" onclick="answer(2,2)">Connection</button>
+        <button class="quiz-opt" onclick="answer(2,3)">Transformation</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="step-3">
+      <div class="quiz-q">How do you handle hard emotions?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(3,0)">I sit with them quietly until they pass</button>
+        <button class="quiz-opt" onclick="answer(3,1)">I need to understand where they come from</button>
+        <button class="quiz-opt" onclick="answer(3,2)">I talk to someone — connection helps me process</button>
+        <button class="quiz-opt" onclick="answer(3,3)">I channel them into something creative</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="step-4">
+      <div class="quiz-q">What's your relationship with the past?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(4,0)">I hold it gently — it made me who I am</button>
+        <button class="quiz-opt" onclick="answer(4,1)">I'm still making sense of it</button>
+        <button class="quiz-opt" onclick="answer(4,2)">I try not to be captured by it</button>
+        <button class="quiz-opt" onclick="answer(4,3)">I want to rewrite it</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="step-result">
+      <div class="quiz-result" id="quiz-result-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-art">
     <img src="assets/namjoon_full_2.jpg" alt="Illustrated artwork of RM">
@@ -217,6 +416,7 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-brand">Namjoon's Booklist</div>
   <div class="footer-note">Independent fan project · Not affiliated with RM, BTS, or HYBE</div>
@@ -227,168 +427,273 @@
 <script>
 (function(){
 
-  // ===== INTRO ANIMATION =====
-  const intro = document.getElementById('intro');
-  const introText = document.getElementById('intro-text');
-  const page = document.getElementById('page');
+  // ===== HELPERS =====
+  function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+  function dayIndex(arr){ const d=new Date(); const n=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24)); return n%arr.length }
+  function amazonUrl(t,a){return'https://www.amazon.com/s?k='+encodeURIComponent(t+' '+a)}
+  function bookshopUrl(t){return'https://bookshop.org/search?keywords='+encodeURIComponent(t)}
 
-  setTimeout(() => introText.style.opacity = '1', 100);
-  setTimeout(() => {
-    introText.style.transition = 'opacity .8s ease, transform .8s ease';
-    introText.style.opacity = '1';
-    introText.style.transform = 'translateY(0)';
-  }, 200);
-  setTimeout(() => intro.style.opacity = '0', 1400);
-  setTimeout(() => {
-    intro.style.display = 'none';
-    document.body.classList.add('loaded');
-  }, 2100);
-
-  // Trigger intro text reveal
-  setTimeout(() => intro.classList.add('reveal'), 150);
+  // ===== INTRO (4 seconds) =====
+  const intro=document.getElementById('intro');
+  setTimeout(()=>intro.classList.add('reveal'),250);
+  setTimeout(()=>intro.classList.add('exit'),2900);
+  setTimeout(()=>{intro.style.display='none';document.body.classList.add('loaded')},3700);
 
   // ===== IMAGE ROTATOR =====
-  const images = [
-    'assets/namjoon_full_1.jpg',
-    'assets/namjoon_full_2.jpg',
-    'assets/namjoon_full_3.jpg',
-    'assets/namjoon_full_4.jpg'
-  ];
-  const heroArt = document.getElementById('hero-art');
-  const dotsEl = document.getElementById('dots');
-  let current = 0;
-  let rotatorInterval;
-
-  const slides = images.map((src, i) => {
-    const div = document.createElement('div');
-    div.className = 'slide' + (i === 0 ? ' active' : '');
-    div.style.backgroundImage = `url(${src})`;
-    heroArt.insertBefore(div, dotsEl);
+  const images=['assets/namjoon_full_1.jpg','assets/namjoon_full_2.jpg','assets/namjoon_full_3.jpg','assets/namjoon_full_4.jpg'];
+  const heroArt=document.getElementById('hero-art');
+  const dotsEl=document.getElementById('dots');
+  let current=0,rotatorInterval;
+  const slides=images.map((src,i)=>{
+    const div=document.createElement('div');
+    div.className='slide'+(i===0?' active':'');
+    div.style.backgroundImage=`url(${src})`;
+    heroArt.insertBefore(div,dotsEl);
     return div;
   });
-
-  const dotBtns = images.map((_, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'dot' + (i === 0 ? ' on' : '');
-    btn.addEventListener('click', () => goTo(i));
+  const dotBtns=images.map((_,i)=>{
+    const btn=document.createElement('button');
+    btn.className='dot'+(i===0?' on':'');
+    btn.addEventListener('click',()=>goTo(i));
     dotsEl.appendChild(btn);
     return btn;
   });
+  function goTo(n){slides[current].classList.remove('active');dotBtns[current].classList.remove('on');current=n;slides[current].classList.add('active');dotBtns[current].classList.add('on')}
+  function nextSlide(){goTo((current+1)%images.length)}
+  rotatorInterval=setInterval(nextSlide,4500);
+  heroArt.addEventListener('mouseenter',()=>clearInterval(rotatorInterval));
+  heroArt.addEventListener('mouseleave',()=>{rotatorInterval=setInterval(nextSlide,4500)});
 
-  function goTo(n){
-    slides[current].classList.remove('active');
-    dotBtns[current].classList.remove('on');
-    current = n;
-    slides[current].classList.add('active');
-    dotBtns[current].classList.add('on');
+  // ===== READING TRACKER =====
+  function getRead(){try{return JSON.parse(localStorage.getItem('njbl_read')||'[]')}catch{return[]}}
+  function saveRead(arr){try{localStorage.setItem('njbl_read',JSON.stringify(arr))}catch{}}
+  function updateTrackerBanner(){
+    const n=getRead().length;
+    document.getElementById('tracker-count').textContent=n;
   }
-
-  function next(){ goTo((current + 1) % images.length); }
-
-  rotatorInterval = setInterval(next, 4000);
-  heroArt.addEventListener('mouseenter', () => clearInterval(rotatorInterval));
-  heroArt.addEventListener('mouseleave', () => { rotatorInterval = setInterval(next, 4000); });
+  updateTrackerBanner();
 
   // ===== BOOKS =====
-  let BOOKS = [];
-  let activeCat = 'All';
-  let query = '';
-
-  const grid = document.getElementById('grid');
-  const chipsEl = document.getElementById('chips');
-  const emptyEl = document.getElementById('empty');
+  let BOOKS=[];
+  let activeCat='All';
+  let query='';
+  const grid=document.getElementById('grid');
+  const chipsEl=document.getElementById('chips');
+  const emptyEl=document.getElementById('empty');
 
   fetch('books.json')
-    .then(r => r.json())
-    .then(data => {
-      BOOKS = data.books || [];
+    .then(r=>r.json())
+    .then(data=>{
+      BOOKS=data.books||[];
       buildChips();
       buildStats();
+      buildBotd();
       render();
     })
-    .catch(() => {
-      emptyEl.textContent = 'The catalog could not be loaded.';
-      emptyEl.style.display = 'block';
-    });
+    .catch(()=>{emptyEl.textContent='The catalog could not be loaded.';emptyEl.style.display='block'});
 
   function buildStats(){
-    document.getElementById('stat-books').textContent = BOOKS.length;
-    document.getElementById('stat-authors').textContent = new Set(BOOKS.map(b => b.author)).size;
-    document.getElementById('stat-cats').textContent = new Set(BOOKS.map(b => b.category)).size;
+    document.getElementById('stat-books').textContent=BOOKS.length;
+    document.getElementById('stat-authors').textContent=new Set(BOOKS.map(b=>b.author)).size;
+    document.getElementById('stat-cats').textContent=new Set(BOOKS.map(b=>b.category)).size;
+  }
+
+  function buildBotd(){
+    const b=BOOKS[dayIndex(BOOKS)];
+    if(!b)return;
+    document.getElementById('botd-title').textContent=b.title;
+    document.getElementById('botd-author').textContent=b.author;
+    document.getElementById('botd-desc').textContent=b.description||'A book from RM\'s reading life.';
+    document.getElementById('botd-meta').textContent=b.category+(b.origin?' · '+b.origin:'')+(b.verified?' · Verified mention':'');
+    document.getElementById('botd-links').innerHTML=`
+      <a class="botd-link" href="${amazonUrl(b.title,b.author)}" target="_blank" rel="noopener">Amazon →</a>
+      <a class="botd-link" href="${bookshopUrl(b.title)}" target="_blank" rel="noopener">Bookshop.org →</a>
+    `;
   }
 
   function buildChips(){
-    const cats = ['All', ...Array.from(new Set(BOOKS.map(b => b.category))).sort()];
-    chipsEl.innerHTML = '';
-    cats.forEach(c => {
-      const btn = document.createElement('button');
-      btn.className = 'chip' + (c === activeCat ? ' on' : '');
-      btn.textContent = c;
-      btn.addEventListener('click', () => {
-        activeCat = c;
-        document.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
-        btn.classList.add('on');
-        render();
-      });
+    const cats=['All',...Array.from(new Set(BOOKS.map(b=>b.category))).sort()];
+    chipsEl.innerHTML='';
+    cats.forEach(c=>{
+      const btn=document.createElement('button');
+      btn.className='chip'+(c===activeCat?' on':'');
+      btn.textContent=c;
+      btn.addEventListener('click',()=>{activeCat=c;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));btn.classList.add('on');render()});
       chipsEl.appendChild(btn);
     });
   }
 
-  document.getElementById('search').addEventListener('input', e => {
-    query = e.target.value.trim().toLowerCase();
-    render();
-  });
-
-  function esc(s){
-    const d = document.createElement('div');
-    d.textContent = s || '';
-    return d.innerHTML;
-  }
-
-  function amazonSearch(title, author){
-    return 'https://www.amazon.com/s?k=' + encodeURIComponent(title + ' ' + author);
-  }
-
-  function bookshopSearch(title){
-    return 'https://bookshop.org/search?keywords=' + encodeURIComponent(title);
-  }
+  document.getElementById('search').addEventListener('input',e=>{query=e.target.value.trim().toLowerCase();render()});
 
   function render(){
-    const list = BOOKS.filter(b => {
-      const inCat = activeCat === 'All' || b.category === activeCat;
-      const inQuery = !query || (b.title + ' ' + b.author).toLowerCase().includes(query);
-      return inCat && inQuery;
+    const read=getRead();
+    const list=BOOKS.filter(b=>{
+      const inCat=activeCat==='All'||b.category===activeCat;
+      const inQuery=!query||(b.title+' '+b.author).toLowerCase().includes(query);
+      return inCat&&inQuery;
     });
-
-    grid.innerHTML = list.map(b => `
-      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    grid.innerHTML=list.map(b=>{
+      const isRead=read.includes(b.title);
+      return`<div class="flip-card" id="card-${esc(b.title.replace(/\s/g,'_'))}" onclick="handleCardClick(event,this)">
         <div class="flip-inner">
           <div class="flip-front">
-            <div class="card-meta">${esc(b.category)}${b.origin ? ' · ' + esc(b.origin) : ''}</div>
-            <div class="card-title">${esc(b.title)}</div>
-            <div class="card-author">${esc(b.author)}</div>
-            <div class="card-source"><b>Source</b> — ${esc(b.source)}</div>
+            <div class="card-top">
+              <div class="card-meta">${esc(b.category)}${b.origin?' · '+esc(b.origin):''}</div>
+              <button class="card-check${isRead?' checked':''}" onclick="toggleRead(event,'${esc(b.title).replace(/'/g,"\\'")}',this)" title="${isRead?'Mark unread':'Mark as read'}">${isRead?'✓':''}</button>
+            </div>
+            <div class="card-body">
+              <div class="card-title">${esc(b.title)}</div>
+              <div class="card-author">${esc(b.author)}</div>
+              <div class="card-source"><b>Source</b> — ${esc(b.source)}</div>
+            </div>
             <div class="card-hint">Tap to learn more →</div>
           </div>
           <div class="flip-back">
             <div>
               <div class="back-title">${esc(b.title)}</div>
-              <div class="back-desc">${esc(b.description || 'A book from RM\'s reading life. More details coming soon.')}</div>
+              <div class="back-desc">${esc(b.description||'More details coming soon.')}</div>
             </div>
             <div>
               <div class="back-links">
-                <a class="back-link" href="${amazonSearch(b.title, b.author)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Amazon →</a>
-                <a class="back-link" href="${bookshopSearch(b.title)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Bookshop.org →</a>
+                <a class="back-link" href="${amazonUrl(b.title,b.author)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Amazon →</a>
+                <a class="back-link" href="${bookshopUrl(b.title)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Bookshop.org →</a>
               </div>
               <div class="back-close">Tap again to close</div>
             </div>
           </div>
         </div>
+      </div>`
+    }).join('');
+    emptyEl.style.display=list.length?'none':'block';
+  }
+
+  window.handleCardClick=function(e,card){
+    if(e.target.classList.contains('card-check')||e.target.closest('.card-check'))return;
+    if(e.target.classList.contains('back-link')||e.target.closest('.back-link'))return;
+    card.classList.toggle('flipped');
+  };
+
+  window.toggleRead=function(e,title,btn){
+    e.stopPropagation();
+    let read=getRead();
+    if(read.includes(title)){read=read.filter(t=>t!==title);btn.classList.remove('checked');btn.textContent='';btn.title='Mark as read'}
+    else{read.push(title);btn.classList.add('checked');btn.textContent='✓';btn.title='Mark unread'}
+    saveRead(read);
+    updateTrackerBanner();
+  };
+
+  // ===== DAILY QUOTE =====
+  fetch('quotes.json')
+    .then(r=>r.json())
+    .then(data=>{
+      const quotes=data.quotes||[];
+      if(!quotes.length)return;
+      const q=quotes[dayIndex(quotes)];
+      document.getElementById('daily-quote').textContent='"'+q.text+'"';
+      document.getElementById('daily-source').textContent='— '+q.source+(q.year?', '+q.year:'');
+    })
+    .catch(()=>{});
+
+  // ===== VIDEOS =====
+  fetch('videos.json')
+    .then(r=>r.json())
+    .then(data=>{
+      const videos=data.videos||[];
+      const official=videos.filter(v=>v.type==='official');
+      const army=videos.filter(v=>v.type==='army');
+      renderVideos('official-videos',official);
+      renderVideos('army-videos',army);
+    })
+    .catch(()=>{});
+
+  function renderVideos(containerId,list){
+    const el=document.getElementById(containerId);
+    if(!el||!list.length)return;
+    el.innerHTML=list.map(v=>`
+      <div class="video-card">
+        <div class="video-thumb" onclick="loadVideo(this,'${v.id}')">
+          <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${esc(v.title)}" loading="lazy">
+          <div class="play-btn">
+            <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M66.5 7.7c-.8-2.9-3.1-5.2-6-6C55.8 0 34 0 34 0S12.2 0 7.5 1.7c-2.9.8-5.2 3.1-6 6C0 12.4 0 24 0 24s0 11.6 1.5 16.3c.8 2.9 3.1 5.2 6 6C12.2 48 34 48 34 48s21.8 0 26.5-1.7c2.9-.8 5.2-3.1 6-6C68 35.6 68 24 68 24s0-11.6-1.5-16.3z" fill="rgba(0,0,0,.7)"/>
+              <path d="M27 34l18-10-18-10v20z" fill="#fff"/>
+            </svg>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">${esc(v.title)}</div>
+          <div class="video-creator">${esc(v.creator)} · ${esc(v.date)}</div>
+          <div class="video-desc">${esc(v.description)}</div>
+        </div>
       </div>
     `).join('');
-
-    emptyEl.style.display = list.length ? 'none' : 'block';
   }
+
+  window.loadVideo=function(thumb,id){
+    const iframe=document.createElement('iframe');
+    iframe.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    iframe.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+    iframe.allowFullscreen=true;
+    thumb.querySelector('img').style.display='none';
+    thumb.querySelector('.play-btn').style.display='none';
+    thumb.appendChild(iframe);
+  };
+
+  // ===== QUIZ =====
+  const quizResults=[
+    {title:'Demian',author:'Hermann Hesse',desc:'You\'re on a deep journey of self-discovery — questioning who you are beneath the person the world expects you to be. Demian will feel like it was written for you.'},
+    {title:'The Midnight Library',author:'Matt Haig',desc:'You carry your regrets gently and wonder about roads not taken. The Midnight Library will hold you through that, and leave you lighter.'},
+    {title:'Letters to a Young Poet',author:'Rainer Maria Rilke',desc:'You live with questions you can\'t yet answer, and you\'ve learned to sit with that uncertainty. Rilke will feel like a letter written directly to you.'},
+    {title:'Human Acts',author:'Han Kang',desc:'You feel the weight of history and collective suffering, and you believe bearing witness matters. Human Acts will move you profoundly.'},
+    {title:'The Art of Loving',author:'Erich Fromm',desc:'You\'re thinking deeply about what love actually means — not the feeling, but the practice. Fromm will give you a framework that stays with you.'},
+    {title:'Walden',author:'Henry David Thoreau',desc:'You\'re drawn to simplicity, solitude, and living more deliberately. Walden is the book that will make you want to build a cabin in the woods.'},
+    {title:'Cosmos',author:'Carl Sagan',desc:'You\'re filled with wonder at the scale of existence — the universe feels personal to you. Cosmos will deepen that wonder into something almost spiritual.'},
+    {title:'The Stranger',author:'Albert Camus',desc:'You see through the phoniness of social convention and you\'re not afraid to sit with uncomfortable truths. The Stranger will resonate immediately.'}
+  ];
+
+  let answers=[];
+
+  window.openQuiz=function(){
+    answers=[];
+    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('step-0').classList.add('active');
+    document.getElementById('quiz-modal').classList.add('open');
+    document.body.style.overflow='hidden';
+  };
+
+  window.closeQuiz=function(){
+    document.getElementById('quiz-modal').classList.remove('open');
+    document.body.style.overflow='';
+  };
+
+  window.answer=function(step,choice){
+    answers.push(choice);
+    const next=step+1;
+    document.getElementById('step-'+step).classList.remove('active');
+    if(next<5){
+      document.getElementById('step-'+next).classList.add('active');
+    } else {
+      const score=answers.reduce((a,b)=>a+b,0);
+      const idx=score%quizResults.length;
+      const r=quizResults[idx];
+      document.getElementById('quiz-result-content').innerHTML=`
+        <div class="result-label">Your RM book match</div>
+        <div class="result-title">${esc(r.title)}</div>
+        <div class="result-author">${esc(r.author)}</div>
+        <div class="result-desc">${esc(r.desc)}</div>
+        <div class="quiz-result-links">
+          <a class="quiz-result-link" href="${amazonUrl(r.title,r.author)}" target="_blank" rel="noopener">Buy on Amazon →</a>
+          <a class="quiz-result-link" href="${bookshopUrl(r.title)}" target="_blank" rel="noopener">Buy on Bookshop.org →</a>
+        </div>
+        <button class="quiz-restart" onclick="window.openQuiz()">Take the quiz again</button>
+      `;
+      document.getElementById('step-result').classList.add('active');
+    }
+  };
+
+  document.getElementById('quiz-modal').addEventListener('click',function(e){
+    if(e.target===this)closeQuiz();
+  });
 
 })();
 </script>
