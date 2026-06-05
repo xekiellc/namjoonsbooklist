@@ -12,11 +12,9 @@
 <meta property="og:description" content="A searchable catalog of RM's reading list. Daily quotes, reading tracker, book quiz.">
 <meta property="og:image" content="https://namjoonsbooklist.com/assets/namjoon_full_1.jpg">
 <meta name="twitter:card" content="summary_large_image">
-
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="/favicon.svg">
 <meta name="theme-color" content="#1C1B17">
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJVYT6C8JP"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -24,11 +22,9 @@
   gtag('js', new Date());
   gtag('config', 'G-SJVYT6C8JP');
 </script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..600;1,9..144,200..500&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
-
 <style>
   :root{
     --paper:#F4F1EA;
@@ -53,13 +49,13 @@
   /* ===== INTRO ===== */
   .intro{position:fixed;inset:0;background:var(--ink);z-index:1000;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .8s ease}
   .intro.exit{opacity:0}
+  .intro.gone{display:none}
   .intro-text{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,64px);color:var(--paper);font-weight:200;letter-spacing:-.02em;opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease}
   .intro-text em{font-style:italic;color:var(--gold)}
   .intro.reveal .intro-text{opacity:1;transform:translateY(0)}
 
-  /* ===== PAGE ===== */
-  .page{opacity:0;transform:translateY(12px);transition:opacity .9s ease,transform .9s ease}
-  body.loaded .page{opacity:1;transform:translateY(0)}
+  /* ===== PAGE — always visible, intro floats on top ===== */
+  .page{opacity:1}
 
   /* ===== NAV ===== */
   nav{display:flex;justify-content:space-between;align-items:center;padding:22px 56px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(244,241,234,.94);backdrop-filter:blur(12px);z-index:50}
@@ -184,7 +180,7 @@
   .quiz-left p{color:var(--ink-soft);font-size:15px;max-width:44ch}
   .quiz-btn{font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:var(--paper);border:none;padding:16px 32px;cursor:pointer;font-family:'Archivo',sans-serif;transition:.2s;white-space:nowrap;flex-shrink:0}
   .quiz-btn:hover{background:var(--accent-bright)}
-  .quiz-modal{position:fixed;inset:0;background:rgba(20,31,26,.92);z-index:200;display:none;align-items:center;justify-content:center;padding:24px}
+  .quiz-modal{position:fixed;inset:0;background:rgba(20,31,26,.92);z-index:1100;display:none;align-items:center;justify-content:center;padding:24px}
   .quiz-modal.open{display:flex}
   .quiz-box{background:var(--paper);max-width:580px;width:100%;padding:48px;position:relative;max-height:90vh;overflow-y:auto}
   .quiz-close{position:absolute;top:18px;right:22px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);line-height:1}
@@ -245,14 +241,12 @@
 </head>
 <body>
 
-<!-- INTRO -->
 <div class="intro" id="intro">
   <div class="intro-text">Namjoon's <em>Booklist</em></div>
 </div>
 
-<div class="page" id="page">
+<div class="page">
 
-<!-- NAV -->
 <nav>
   <a class="brand" href="/">Namjoon's <em>Booklist</em></a>
   <div class="navlinks">
@@ -263,14 +257,12 @@
   </div>
 </nav>
 
-<!-- DAILY QUOTE -->
 <div class="quote-bar">
   <div class="quote-label">Daily Quote</div>
   <div class="quote-text" id="daily-quote">Loading…</div>
   <div class="quote-source" id="daily-source"></div>
 </div>
 
-<!-- HERO -->
 <header>
   <div class="hero-text">
     <h1>Every book he <em>quietly</em> told us to read.</h1>
@@ -280,7 +272,7 @@
       <div class="stat"><div class="n" id="stat-authors">—</div><div class="l">Authors</div></div>
       <div class="stat"><div class="n" id="stat-cats">—</div><div class="l">Categories</div></div>
     </div>
-    <div class="tracker-banner" id="tracker-banner">
+    <div class="tracker-banner">
       <div>
         <div class="tb-count" id="tracker-count">0</div>
         <div class="tb-label">Books read from this list</div>
@@ -294,8 +286,7 @@
   </div>
 </header>
 
-<!-- BOOK OF THE DAY -->
-<div class="botd" id="botd">
+<div class="botd">
   <div>
     <div class="botd-label">Book of the Day</div>
     <div class="botd-title" id="botd-title">Loading…</div>
@@ -308,7 +299,6 @@
   </div>
 </div>
 
-<!-- CATALOG -->
 <section id="catalog">
   <div class="divider">
     <h2>The catalog</h2>
@@ -324,7 +314,6 @@
   <div class="empty" id="empty">Nothing on this shelf — try another search.</div>
 </section>
 
-<!-- VIDEOS -->
 <section class="video-section" id="videos">
   <div class="divider dark">
     <h2>Namjoon on Books</h2>
@@ -337,7 +326,6 @@
   <div class="video-grid" id="army-videos"></div>
 </section>
 
-<!-- QUIZ -->
 <div id="quiz-anchor"></div>
 <div class="quiz-strip">
   <div class="quiz-left">
@@ -401,7 +389,6 @@
   </div>
 </div>
 
-<!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-art">
     <img src="assets/namjoon_full_2.jpg" alt="Illustrated artwork of RM">
@@ -414,7 +401,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-brand">Namjoon's Booklist</div>
   <div class="footer-note">Independent fan project · Not affiliated with RM, BTS, or HYBE</div>
@@ -424,22 +410,19 @@
 
 <script>
 (function(){
-
   function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
   function dayIndex(arr){const d=new Date();const n=Math.floor((d-new Date(d.getFullYear(),0,0))/(1000*60*60*24));return n%arr.length}
   function amazonUrl(t,a){return'https://www.amazon.com/s?k='+encodeURIComponent(t+' '+a)}
   function bookshopUrl(t){return'https://bookshop.org/a/124881/'+encodeURIComponent(t)}
 
-  // ===== INTRO =====
+  // ===== INTRO — visual only, never blocks page =====
   const intro=document.getElementById('intro');
   if(window.location.hash==='#quiz-anchor'){
-    // Skip intro entirely when landing on quiz link
     intro.style.display='none';
-    document.body.classList.add('loaded');
   } else {
     setTimeout(()=>intro.classList.add('reveal'),250);
     setTimeout(()=>intro.classList.add('exit'),2900);
-    setTimeout(()=>{intro.style.display='none';document.body.classList.add('loaded')},3700);
+    setTimeout(()=>intro.classList.add('gone'),3700);
   }
 
   // ===== IMAGE ROTATOR =====
@@ -640,7 +623,6 @@
     document.body.style.overflow='hidden';
   };
 
-  // Auto-open quiz if URL contains #quiz-anchor
   if(window.location.hash==='#quiz-anchor'){
     setTimeout(()=>window.openQuiz(),300);
   }
