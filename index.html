@@ -54,7 +54,7 @@
   .intro-text em{font-style:italic;color:var(--gold)}
   .intro.reveal .intro-text{opacity:1;transform:translateY(0)}
 
-  /* ===== PAGE — always visible, intro floats on top ===== */
+  /* ===== PAGE ===== */
   .page{opacity:1}
 
   /* ===== NAV ===== */
@@ -186,11 +186,17 @@
   .quiz-close{position:absolute;top:18px;right:22px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink-soft);line-height:1}
   .quiz-step{display:none}
   .quiz-step.active{display:block}
-  .quiz-q{font-family:'Fraunces',serif;font-weight:400;font-size:22px;margin-bottom:24px;line-height:1.3;letter-spacing:-.01em}
+  .quiz-q{font-family:'Fraunces',serif;font-weight:400;font-size:22px;margin-bottom:8px;line-height:1.3;letter-spacing:-.01em}
+  .quiz-sub{font-size:13px;color:var(--ink-soft);margin-bottom:24px}
+  .quiz-progress{display:flex;gap:6px;margin-bottom:28px}
+  .quiz-progress span{flex:1;height:2px;background:var(--line)}
+  .quiz-progress span.done{background:var(--accent)}
+  .quiz-progress span.active{background:var(--accent-bright)}
   .quiz-options{display:flex;flex-direction:column;gap:10px}
   .quiz-opt{background:none;border:1px solid var(--line);padding:14px 18px;text-align:left;cursor:pointer;font-family:'Archivo',sans-serif;font-size:14px;color:var(--ink);transition:.2s;width:100%}
   .quiz-opt:hover{border-color:var(--accent);background:var(--paper-2)}
   .quiz-result{text-align:center}
+  .quiz-result .result-type{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
   .quiz-result .result-label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
   .quiz-result .result-title{font-family:'Fraunces',serif;font-weight:300;font-size:36px;letter-spacing:-.02em;margin-bottom:8px}
   .quiz-result .result-author{font-size:15px;color:var(--ink-soft);margin-bottom:20px}
@@ -330,7 +336,7 @@
 <div class="quiz-strip">
   <div class="quiz-left">
     <h2>Which RM book are <em style="font-style:italic">you?</em></h2>
-    <p>Five quick questions. One book recommendation picked just for you — from his actual reading list.</p>
+    <p>Five questions. One book matched to how you actually think and feel — from his real reading list.</p>
   </div>
   <button class="quiz-btn" onclick="openQuiz()">Take the quiz →</button>
 </div>
@@ -338,51 +344,65 @@
 <div class="quiz-modal" id="quiz-modal">
   <div class="quiz-box">
     <button class="quiz-close" onclick="closeQuiz()">×</button>
+    <div class="quiz-progress" id="quiz-progress">
+      <span class="active"></span><span></span><span></span><span></span><span></span>
+    </div>
+
     <div class="quiz-step active" id="step-0">
-      <div class="quiz-q">It's a quiet Sunday morning. What are you doing?</div>
+      <div class="quiz-q">It's a quiet Sunday. What are you doing?</div>
+      <div class="quiz-sub">Pick the one that feels most like you.</div>
       <div class="quiz-options">
-        <button class="quiz-opt" onclick="answer(0,0)">Reading alone somewhere beautiful</button>
-        <button class="quiz-opt" onclick="answer(0,1)">Thinking about something that's been bothering me</button>
-        <button class="quiz-opt" onclick="answer(0,2)">Out exploring — a museum, a market, anywhere new</button>
-        <button class="quiz-opt" onclick="answer(0,3)">Watching something thought-provoking</button>
+        <button class="quiz-opt" onclick="answer(0,'inner','heart')">Reading alone — somewhere with good light and no interruptions</button>
+        <button class="quiz-opt" onclick="answer(0,'inner','head')">Thinking through something that's been unresolved all week</button>
+        <button class="quiz-opt" onclick="answer(0,'outer','heart')">With people I love — or making plans to be</button>
+        <button class="quiz-opt" onclick="answer(0,'outer','head')">Out somewhere new — a gallery, a market, anywhere with texture</button>
       </div>
     </div>
+
     <div class="quiz-step" id="step-1">
-      <div class="quiz-q">What feeling do you most want a book to give you?</div>
+      <div class="quiz-q">What do you most want a book to do for you?</div>
+      <div class="quiz-sub">Be honest — not what sounds best, what you actually reach for.</div>
       <div class="quiz-options">
-        <button class="quiz-opt" onclick="answer(1,0)">A sense of wonder at the world</button>
-        <button class="quiz-opt" onclick="answer(1,1)">The feeling that someone understands me</button>
-        <button class="quiz-opt" onclick="answer(1,2)">Something to think about for days</button>
-        <button class="quiz-opt" onclick="answer(1,3)">A story that pulls me completely away</button>
+        <button class="quiz-opt" onclick="answer(1,'inner','heart')">Make me feel less alone in something I've never said out loud</button>
+        <button class="quiz-opt" onclick="answer(1,'inner','head')">Give me a framework for something I haven't been able to articulate</button>
+        <button class="quiz-opt" onclick="answer(1,'outer','heart')">Move me — make me cry, or ache, or feel something huge</button>
+        <button class="quiz-opt" onclick="answer(1,'outer','head')">Show me a world or an idea I didn't know existed</button>
       </div>
     </div>
+
     <div class="quiz-step" id="step-2">
-      <div class="quiz-q">Pick the word that resonates most right now.</div>
+      <div class="quiz-q">One word. Which pulls at you right now?</div>
+      <div class="quiz-sub">Go with your gut — first instinct.</div>
       <div class="quiz-options">
-        <button class="quiz-opt" onclick="answer(2,0)">Solitude</button>
-        <button class="quiz-opt" onclick="answer(2,1)">Identity</button>
-        <button class="quiz-opt" onclick="answer(2,2)">Connection</button>
-        <button class="quiz-opt" onclick="answer(2,3)">Transformation</button>
+        <button class="quiz-opt" onclick="answer(2,'inner','heart')">Longing</button>
+        <button class="quiz-opt" onclick="answer(2,'inner','head')">Clarity</button>
+        <button class="quiz-opt" onclick="answer(2,'outer','heart')">Tenderness</button>
+        <button class="quiz-opt" onclick="answer(2,'outer','head')">Wonder</button>
       </div>
     </div>
+
     <div class="quiz-step" id="step-3">
-      <div class="quiz-q">How do you handle hard emotions?</div>
+      <div class="quiz-q">When something hard happens, what do you do?</div>
+      <div class="quiz-sub">What actually happens — not what you wish you did.</div>
       <div class="quiz-options">
-        <button class="quiz-opt" onclick="answer(3,0)">I sit with them quietly until they pass</button>
-        <button class="quiz-opt" onclick="answer(3,1)">I need to understand where they come from</button>
-        <button class="quiz-opt" onclick="answer(3,2)">I talk to someone — connection helps me process</button>
-        <button class="quiz-opt" onclick="answer(3,3)">I channel them into something creative</button>
+        <button class="quiz-opt" onclick="answer(3,'inner','heart')">Go quiet. Sit with it until I know what it is.</button>
+        <button class="quiz-opt" onclick="answer(3,'inner','head')">Try to understand it — where it came from, what it means.</button>
+        <button class="quiz-opt" onclick="answer(3,'outer','heart')">Reach out. I need someone to hold it with me.</button>
+        <button class="quiz-opt" onclick="answer(3,'outer','head')">Move. Do something. I process by acting, not waiting.</button>
       </div>
     </div>
+
     <div class="quiz-step" id="step-4">
-      <div class="quiz-q">What's your relationship with the past?</div>
+      <div class="quiz-q">The past — how do you carry it?</div>
+      <div class="quiz-sub">The honest answer, not the aspirational one.</div>
       <div class="quiz-options">
-        <button class="quiz-opt" onclick="answer(4,0)">I hold it gently — it made me who I am</button>
-        <button class="quiz-opt" onclick="answer(4,1)">I'm still making sense of it</button>
-        <button class="quiz-opt" onclick="answer(4,2)">I try not to be captured by it</button>
-        <button class="quiz-opt" onclick="answer(4,3)">I want to rewrite it</button>
+        <button class="quiz-opt" onclick="answer(4,'tiebreak-a',null)">Gently. It made me who I am and I don't want to lose it.</button>
+        <button class="quiz-opt" onclick="answer(4,'tiebreak-b',null)">Carefully. I'm still making sense of what it means.</button>
+        <button class="quiz-opt" onclick="answer(4,'tiebreak-a',null)">Lightly. I try not to be captured by it.</button>
+        <button class="quiz-opt" onclick="answer(4,'tiebreak-b',null)">Heavily. It's there whether I want it or not.</button>
       </div>
     </div>
+
     <div class="quiz-step" id="step-result">
       <div class="quiz-result" id="quiz-result-content"></div>
     </div>
@@ -415,7 +435,7 @@
   function amazonUrl(t,a){return'https://www.amazon.com/s?k='+encodeURIComponent(t+' '+a)}
   function bookshopUrl(t){return'https://bookshop.org/a/124881/'+encodeURIComponent(t)}
 
-  // ===== INTRO — visual only, never blocks page =====
+  // ===== INTRO =====
   const intro=document.getElementById('intro');
   if(window.location.hash==='#quiz-anchor'){
     intro.style.display='none';
@@ -602,62 +622,141 @@
   };
 
   // ===== QUIZ =====
-  const quizResults=[
-    {title:'Demian',author:'Hermann Hesse',desc:'You\'re on a deep journey of self-discovery — questioning who you are beneath the person the world expects you to be. Demian will feel like it was written for you.'},
-    {title:'The Midnight Library',author:'Matt Haig',desc:'You carry your regrets gently and wonder about roads not taken. The Midnight Library will hold you through that, and leave you lighter.'},
-    {title:'Letters to a Young Poet',author:'Rainer Maria Rilke',desc:'You live with questions you can\'t yet answer, and you\'ve learned to sit with that uncertainty. Rilke will feel like a letter written directly to you.'},
-    {title:'Human Acts',author:'Han Kang',desc:'You feel the weight of history and collective suffering, and you believe bearing witness matters. Human Acts will move you profoundly.'},
-    {title:'The Art of Loving',author:'Erich Fromm',desc:'You\'re thinking deeply about what love actually means — not the feeling, but the practice. Fromm will give you a framework that stays with you.'},
-    {title:'Walden',author:'Henry David Thoreau',desc:'You\'re drawn to simplicity, solitude, and living more deliberately. Walden is the book that will make you want to build a cabin in the woods.'},
-    {title:'Cosmos',author:'Carl Sagan',desc:'You\'re filled with wonder at the scale of existence — the universe feels personal to you. Cosmos will deepen that wonder into something almost spiritual.'},
-    {title:'The Stranger',author:'Albert Camus',desc:'You see through the phoniness of social convention and you\'re not afraid to sit with uncomfortable truths. The Stranger will resonate immediately.'}
-  ];
 
-  let answers=[];
-
-  window.openQuiz=function(){
-    answers=[];
-    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
-    document.getElementById('step-0').classList.add('active');
-    document.getElementById('quiz-modal').classList.add('open');
-    document.body.style.overflow='hidden';
+  // Results by type
+  // Inner+Heart, Inner+Head, Outer+Heart, Outer+Head
+  // Tiebreak-a = Book A, Tiebreak-b = Book B
+  const RESULTS = {
+    'inner-heart': {
+      type: 'The quiet feeler',
+      a: {
+        title: 'Letters to a Young Poet',
+        author: 'Rainer Maria Rilke',
+        desc: 'You live with feelings you can\'t quite name yet, and you\'ve learned — even if reluctantly — to sit with that uncertainty. Rilke writes directly to that place. His letters will feel like someone finally put words to what you\'ve been carrying.'
+      },
+      b: {
+        title: 'The Midnight Library',
+        author: 'Matt Haig',
+        desc: 'You hold your what-ifs gently — all the versions of yourself you almost became. The Midnight Library meets you exactly there. It will move you, and then it will leave you lighter than it found you.'
+      }
+    },
+    'inner-head': {
+      type: 'The solitary thinker',
+      a: {
+        title: 'Demian',
+        author: 'Hermann Hesse',
+        desc: 'You\'re someone who thinks carefully about who you are beneath the person the world expects you to be. Demian is written for exactly that kind of inner work. RM returned to it again and again for good reason.'
+      },
+      b: {
+        title: 'Walden',
+        author: 'Henry David Thoreau',
+        desc: 'You\'re drawn to living more deliberately — to stripping away the noise and finding out what\'s actually essential. Walden is that experiment, lived and written. It will make you want to build something quiet.'
+      }
+    },
+    'outer-heart': {
+      type: 'The deep connector',
+      a: {
+        title: 'Human Acts',
+        author: 'Han Kang',
+        desc: 'You feel the weight of other people\'s suffering — not abstractly, but in your body. Human Acts asks you to bear witness to something enormous. It will break you open and ask you to stay anyway.'
+      },
+      b: {
+        title: 'The Art of Loving',
+        author: 'Erich Fromm',
+        desc: 'You think about love — not the feeling, but the practice. What it actually asks of you. Fromm argues love is a skill, not a gift, and reading him will change how you show up for everyone around you.'
+      }
+    },
+    'outer-head': {
+      type: 'The world-examiner',
+      a: {
+        title: 'The Stranger',
+        author: 'Albert Camus',
+        desc: 'You see through the performance of ordinary life — the social scripts, the expected reactions. The Stranger names that clearly and unflinchingly. You\'ll read it in one sitting and think about it for years.'
+      },
+      b: {
+        title: 'Cosmos',
+        author: 'Carl Sagan',
+        desc: 'You feel the scale of existence personally. The universe isn\'t abstract to you — it\'s intimate. Cosmos meets that feeling and expands it into something that borders on spiritual. Sagan\'s wonder is contagious.'
+      }
+    }
   };
 
-  if(window.location.hash==='#quiz-anchor'){
-    setTimeout(()=>window.openQuiz(),300);
+  let innerCount = 0;
+  let headCount = 0;
+  let tiebreak = 'a';
+  let currentStep = 0;
+
+  function updateProgress(step){
+    const spans = document.querySelectorAll('#quiz-progress span');
+    spans.forEach((s,i)=>{
+      s.className = i < step ? 'done' : i === step ? 'active' : '';
+    });
   }
 
-  window.closeQuiz=function(){
-    document.getElementById('quiz-modal').classList.remove('open');
-    document.body.style.overflow='';
+  window.openQuiz = function(){
+    innerCount = 0;
+    headCount = 0;
+    tiebreak = 'a';
+    currentStep = 0;
+    document.querySelectorAll('.quiz-step').forEach(s=>s.classList.remove('active'));
+    document.getElementById('step-0').classList.add('active');
+    updateProgress(0);
+    document.getElementById('quiz-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
   };
 
-  window.answer=function(step,choice){
-    answers.push(choice);
-    const next=step+1;
+  if(window.location.hash === '#quiz-anchor'){
+    setTimeout(()=>window.openQuiz(), 300);
+  }
+
+  window.closeQuiz = function(){
+    document.getElementById('quiz-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.answer = function(step, axis1, axis2){
+    // Tally axes
+    if(axis1 === 'inner') innerCount++;
+    else if(axis1 === 'outer') innerCount--;
+    if(axis2 === 'head') headCount++;
+    else if(axis2 === 'heart') headCount--;
+    if(axis1 === 'tiebreak-a') tiebreak = 'a';
+    if(axis1 === 'tiebreak-b') tiebreak = 'b';
+
+    // Move to next step
     document.getElementById('step-'+step).classList.remove('active');
-    if(next<5){
-      document.getElementById('step-'+next).classList.add('active');
+    currentStep = step + 1;
+
+    if(currentStep < 5){
+      document.getElementById('step-'+currentStep).classList.add('active');
+      updateProgress(currentStep);
     } else {
-      const score=answers.reduce((a,b)=>a+b,0);
-      const r=quizResults[score%quizResults.length];
-      document.getElementById('quiz-result-content').innerHTML=`
+      // Calculate result
+      const innerOuter = innerCount >= 0 ? 'inner' : 'outer';
+      const headHeart = headCount >= 0 ? 'head' : 'heart';
+      const typeKey = innerOuter + '-' + headHeart;
+      const result = RESULTS[typeKey];
+      const book = result[tiebreak] || result['a'];
+
+      document.getElementById('quiz-result-content').innerHTML = `
+        <div class="result-type">${esc(result.type)}</div>
         <div class="result-label">Your RM book match</div>
-        <div class="result-title">${esc(r.title)}</div>
-        <div class="result-author">${esc(r.author)}</div>
-        <div class="result-desc">${esc(r.desc)}</div>
+        <div class="result-title">${esc(book.title)}</div>
+        <div class="result-author">${esc(book.author)}</div>
+        <div class="result-desc">${esc(book.desc)}</div>
         <div class="quiz-result-links">
-          <a class="quiz-result-link" href="${amazonUrl(r.title,r.author)}" target="_blank" rel="noopener">Buy on Amazon →</a>
-          <a class="quiz-result-link" href="${bookshopUrl(r.title)}" target="_blank" rel="noopener">Buy on Bookshop.org →</a>
+          <a class="quiz-result-link" href="${amazonUrl(book.title, book.author)}" target="_blank" rel="noopener">Buy on Amazon →</a>
+          <a class="quiz-result-link" href="${bookshopUrl(book.title)}" target="_blank" rel="noopener">Buy on Bookshop.org →</a>
         </div>
         <button class="quiz-restart" onclick="window.openQuiz()">Take the quiz again</button>
       `;
       document.getElementById('step-result').classList.add('active');
+      updateProgress(5);
     }
   };
 
-  document.getElementById('quiz-modal').addEventListener('click',function(e){
-    if(e.target===this)closeQuiz();
+  document.getElementById('quiz-modal').addEventListener('click', function(e){
+    if(e.target === this) closeQuiz();
   });
 
 })();
