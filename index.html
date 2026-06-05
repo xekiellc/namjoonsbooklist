@@ -432,9 +432,15 @@
 
   // ===== INTRO =====
   const intro=document.getElementById('intro');
-  setTimeout(()=>intro.classList.add('reveal'),250);
-  setTimeout(()=>intro.classList.add('exit'),2900);
-  setTimeout(()=>{intro.style.display='none';document.body.classList.add('loaded')},3700);
+  if(window.location.hash==='#quiz-anchor'){
+    // Skip intro entirely when landing on quiz link
+    intro.style.display='none';
+    document.body.classList.add('loaded');
+  } else {
+    setTimeout(()=>intro.classList.add('reveal'),250);
+    setTimeout(()=>intro.classList.add('exit'),2900);
+    setTimeout(()=>{intro.style.display='none';document.body.classList.add('loaded')},3700);
+  }
 
   // ===== IMAGE ROTATOR =====
   const images=['assets/namjoon_full_1.jpg','assets/namjoon_full_2.jpg','assets/namjoon_full_3.jpg','assets/namjoon_full_4.jpg'];
@@ -634,9 +640,9 @@
     document.body.style.overflow='hidden';
   };
 
-  // Auto-open quiz if URL contains #quiz-anchor — wait for intro to finish first
+  // Auto-open quiz if URL contains #quiz-anchor
   if(window.location.hash==='#quiz-anchor'){
-    setTimeout(()=>window.openQuiz(),3800);
+    setTimeout(()=>window.openQuiz(),300);
   }
 
   window.closeQuiz=function(){
